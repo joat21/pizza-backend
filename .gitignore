@@ -3,3 +3,4 @@ dist/
 .env
 .vscode/
 prisma/migration_lock.toml
+prisma/scripts

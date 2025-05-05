@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import { PrismaClient } from './generated/prisma';
 import { DEFAULT_AVATAR_URL } from './config/constants';
 import { signToken } from './helpers/signToken';
+import { Role } from './config/types';
 
 dotenv.config();
 
@@ -44,7 +45,7 @@ passport.use(
           });
         }
 
-        const token = signToken(user.id, 'user');
+        const token = signToken(user.id, Role.User);
 
         return done(null, { token });
       } catch (error) {

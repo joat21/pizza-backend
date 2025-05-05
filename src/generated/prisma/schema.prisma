@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -19,4 +13,45 @@ model User {
   githubId  String @unique
   name      String
   avatarUrl String
+}
+
+model Pizza {
+  id          String         @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String
+  category    Category       @relation(fields: [categoryId], references: [id])
+  categoryId  String
+  rating      Float
+  variants    PizzaVariant[]
+}
+
+model Category {
+  id     String  @id @default(uuid())
+  name   String
+  order  Int
+  pizzas Pizza[]
+}
+
+model PizzaVariant {
+  id          String    @id @default(uuid())
+  Pizza       Pizza     @relation(fields: [pizzaId], references: [id])
+  pizzaId     String
+  doughType   DoughType @relation(fields: [doughTypeId], references: [id])
+  doughTypeId String
+  pizzaSize   PizzaSize @relation(fields: [pizzaSizeId], references: [id])
+  pizzaSizeId String
+  price       Int
+}
+
+model DoughType {
+  id       String         @id @default(uuid())
+  name     String
+  variants PizzaVariant[]
+}
+
+model PizzaSize {
+  id       String         @id @default(uuid())
+  size     Int
+  variants PizzaVariant[]
 }
