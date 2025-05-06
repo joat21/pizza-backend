@@ -133,7 +133,8 @@ exports.Prisma.PizzaScalarFieldEnum = {
   description: 'description',
   imageUrl: 'imageUrl',
   categoryId: 'categoryId',
-  rating: 'rating'
+  rating: 'rating',
+  minPrice: 'minPrice'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {

@@ -23,6 +23,7 @@ model Pizza {
   category    Category       @relation(fields: [categoryId], references: [id])
   categoryId  String
   rating      Float
+  minPrice    Int
   variants    PizzaVariant[]
 }
 

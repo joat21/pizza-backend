@@ -2443,10 +2443,12 @@ export namespace Prisma {
 
   export type PizzaAvgAggregateOutputType = {
     rating: number | null
+    minPrice: number | null
   }
 
   export type PizzaSumAggregateOutputType = {
     rating: number | null
+    minPrice: number | null
   }
 
   export type PizzaMinAggregateOutputType = {
@@ -2456,6 +2458,7 @@ export namespace Prisma {
     imageUrl: string | null
     categoryId: string | null
     rating: number | null
+    minPrice: number | null
   }
 
   export type PizzaMaxAggregateOutputType = {
@@ -2465,6 +2468,7 @@ export namespace Prisma {
     imageUrl: string | null
     categoryId: string | null
     rating: number | null
+    minPrice: number | null
   }
 
   export type PizzaCountAggregateOutputType = {
@@ -2474,16 +2478,19 @@ export namespace Prisma {
     imageUrl: number
     categoryId: number
     rating: number
+    minPrice: number
     _all: number
   }
 
 
   export type PizzaAvgAggregateInputType = {
     rating?: true
+    minPrice?: true
   }
 
   export type PizzaSumAggregateInputType = {
     rating?: true
+    minPrice?: true
   }
 
   export type PizzaMinAggregateInputType = {
@@ -2493,6 +2500,7 @@ export namespace Prisma {
     imageUrl?: true
     categoryId?: true
     rating?: true
+    minPrice?: true
   }
 
   export type PizzaMaxAggregateInputType = {
@@ -2502,6 +2510,7 @@ export namespace Prisma {
     imageUrl?: true
     categoryId?: true
     rating?: true
+    minPrice?: true
   }
 
   export type PizzaCountAggregateInputType = {
@@ -2511,6 +2520,7 @@ export namespace Prisma {
     imageUrl?: true
     categoryId?: true
     rating?: true
+    minPrice?: true
     _all?: true
   }
 
@@ -2607,6 +2617,7 @@ export namespace Prisma {
     imageUrl: string
     categoryId: string
     rating: number
+    minPrice: number
     _count: PizzaCountAggregateOutputType | null
     _avg: PizzaAvgAggregateOutputType | null
     _sum: PizzaSumAggregateOutputType | null
@@ -2635,6 +2646,7 @@ export namespace Prisma {
     imageUrl?: boolean
     categoryId?: boolean
     rating?: boolean
+    minPrice?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     variants?: boolean | Pizza$variantsArgs<ExtArgs>
     _count?: boolean | PizzaCountOutputTypeDefaultArgs<ExtArgs>
@@ -2647,6 +2659,7 @@ export namespace Prisma {
     imageUrl?: boolean
     categoryId?: boolean
     rating?: boolean
+    minPrice?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pizza"]>
 
@@ -2657,6 +2670,7 @@ export namespace Prisma {
     imageUrl?: boolean
     categoryId?: boolean
     rating?: boolean
+    minPrice?: boolean
     category?: boolean | CategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pizza"]>
 
@@ -2667,9 +2681,10 @@ export namespace Prisma {
     imageUrl?: boolean
     categoryId?: boolean
     rating?: boolean
+    minPrice?: boolean
   }
 
-  export type PizzaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "imageUrl" | "categoryId" | "rating", ExtArgs["result"]["pizza"]>
+  export type PizzaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "imageUrl" | "categoryId" | "rating" | "minPrice", ExtArgs["result"]["pizza"]>
   export type PizzaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | CategoryDefaultArgs<ExtArgs>
     variants?: boolean | Pizza$variantsArgs<ExtArgs>
@@ -2695,6 +2710,7 @@ export namespace Prisma {
       imageUrl: string
       categoryId: string
       rating: number
+      minPrice: number
     }, ExtArgs["result"]["pizza"]>
     composites: {}
   }
@@ -3126,6 +3142,7 @@ export namespace Prisma {
     readonly imageUrl: FieldRef<"Pizza", 'String'>
     readonly categoryId: FieldRef<"Pizza", 'String'>
     readonly rating: FieldRef<"Pizza", 'Float'>
+    readonly minPrice: FieldRef<"Pizza", 'Int'>
   }
     
 
@@ -7876,7 +7893,8 @@ export namespace Prisma {
     description: 'description',
     imageUrl: 'imageUrl',
     categoryId: 'categoryId',
-    rating: 'rating'
+    rating: 'rating',
+    minPrice: 'minPrice'
   };
 
   export type PizzaScalarFieldEnum = (typeof PizzaScalarFieldEnum)[keyof typeof PizzaScalarFieldEnum]
@@ -8041,6 +8059,7 @@ export namespace Prisma {
     imageUrl?: StringFilter<"Pizza"> | string
     categoryId?: StringFilter<"Pizza"> | string
     rating?: FloatFilter<"Pizza"> | number
+    minPrice?: IntFilter<"Pizza"> | number
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     variants?: PizzaVariantListRelationFilter
   }
@@ -8052,6 +8071,7 @@ export namespace Prisma {
     imageUrl?: SortOrder
     categoryId?: SortOrder
     rating?: SortOrder
+    minPrice?: SortOrder
     category?: CategoryOrderByWithRelationInput
     variants?: PizzaVariantOrderByRelationAggregateInput
   }
@@ -8066,6 +8086,7 @@ export namespace Prisma {
     imageUrl?: StringFilter<"Pizza"> | string
     categoryId?: StringFilter<"Pizza"> | string
     rating?: FloatFilter<"Pizza"> | number
+    minPrice?: IntFilter<"Pizza"> | number
     category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
     variants?: PizzaVariantListRelationFilter
   }, "id">
@@ -8077,6 +8098,7 @@ export namespace Prisma {
     imageUrl?: SortOrder
     categoryId?: SortOrder
     rating?: SortOrder
+    minPrice?: SortOrder
     _count?: PizzaCountOrderByAggregateInput
     _avg?: PizzaAvgOrderByAggregateInput
     _max?: PizzaMaxOrderByAggregateInput
@@ -8094,6 +8116,7 @@ export namespace Prisma {
     imageUrl?: StringWithAggregatesFilter<"Pizza"> | string
     categoryId?: StringWithAggregatesFilter<"Pizza"> | string
     rating?: FloatWithAggregatesFilter<"Pizza"> | number
+    minPrice?: IntWithAggregatesFilter<"Pizza"> | number
   }
 
   export type CategoryWhereInput = {
@@ -8343,6 +8366,7 @@ export namespace Prisma {
     description: string
     imageUrl: string
     rating: number
+    minPrice: number
     category: CategoryCreateNestedOneWithoutPizzasInput
     variants?: PizzaVariantCreateNestedManyWithoutPizzaInput
   }
@@ -8354,6 +8378,7 @@ export namespace Prisma {
     imageUrl: string
     categoryId: string
     rating: number
+    minPrice: number
     variants?: PizzaVariantUncheckedCreateNestedManyWithoutPizzaInput
   }
 
@@ -8363,6 +8388,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateOneRequiredWithoutPizzasNestedInput
     variants?: PizzaVariantUpdateManyWithoutPizzaNestedInput
   }
@@ -8374,6 +8400,7 @@ export namespace Prisma {
     imageUrl?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
     variants?: PizzaVariantUncheckedUpdateManyWithoutPizzaNestedInput
   }
 
@@ -8384,6 +8411,7 @@ export namespace Prisma {
     imageUrl: string
     categoryId: string
     rating: number
+    minPrice: number
   }
 
   export type PizzaUpdateManyMutationInput = {
@@ -8392,6 +8420,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type PizzaUncheckedUpdateManyInput = {
@@ -8401,6 +8430,7 @@ export namespace Prisma {
     imageUrl?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type CategoryCreateInput = {
@@ -8645,6 +8675,17 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type CategoryScalarRelationFilter = {
     is?: CategoryWhereInput
     isNot?: CategoryWhereInput
@@ -8667,10 +8708,12 @@ export namespace Prisma {
     imageUrl?: SortOrder
     categoryId?: SortOrder
     rating?: SortOrder
+    minPrice?: SortOrder
   }
 
   export type PizzaAvgOrderByAggregateInput = {
     rating?: SortOrder
+    minPrice?: SortOrder
   }
 
   export type PizzaMaxOrderByAggregateInput = {
@@ -8680,6 +8723,7 @@ export namespace Prisma {
     imageUrl?: SortOrder
     categoryId?: SortOrder
     rating?: SortOrder
+    minPrice?: SortOrder
   }
 
   export type PizzaMinOrderByAggregateInput = {
@@ -8689,10 +8733,12 @@ export namespace Prisma {
     imageUrl?: SortOrder
     categoryId?: SortOrder
     rating?: SortOrder
+    minPrice?: SortOrder
   }
 
   export type PizzaSumOrderByAggregateInput = {
     rating?: SortOrder
+    minPrice?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -8711,7 +8757,7 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -8719,7 +8765,12 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type PizzaListRelationFilter = {
@@ -8756,22 +8807,6 @@ export namespace Prisma {
 
   export type CategorySumOrderByAggregateInput = {
     order?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type PizzaScalarRelationFilter = {
@@ -8891,6 +8926,14 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type CategoryUpdateOneRequiredWithoutPizzasNestedInput = {
     create?: XOR<CategoryCreateWithoutPizzasInput, CategoryUncheckedCreateWithoutPizzasInput>
     connectOrCreate?: CategoryCreateOrConnectWithoutPizzasInput
@@ -8939,14 +8982,6 @@ export namespace Prisma {
     connectOrCreate?: PizzaCreateOrConnectWithoutCategoryInput | PizzaCreateOrConnectWithoutCategoryInput[]
     createMany?: PizzaCreateManyCategoryInputEnvelope
     connect?: PizzaWhereUniqueInput | PizzaWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type PizzaUpdateManyWithoutCategoryNestedInput = {
@@ -9285,6 +9320,7 @@ export namespace Prisma {
     description: string
     imageUrl: string
     rating: number
+    minPrice: number
     variants?: PizzaVariantCreateNestedManyWithoutPizzaInput
   }
 
@@ -9294,6 +9330,7 @@ export namespace Prisma {
     description: string
     imageUrl: string
     rating: number
+    minPrice: number
     variants?: PizzaVariantUncheckedCreateNestedManyWithoutPizzaInput
   }
 
@@ -9333,6 +9370,7 @@ export namespace Prisma {
     imageUrl?: StringFilter<"Pizza"> | string
     categoryId?: StringFilter<"Pizza"> | string
     rating?: FloatFilter<"Pizza"> | number
+    minPrice?: IntFilter<"Pizza"> | number
   }
 
   export type PizzaCreateWithoutVariantsInput = {
@@ -9341,6 +9379,7 @@ export namespace Prisma {
     description: string
     imageUrl: string
     rating: number
+    minPrice: number
     category: CategoryCreateNestedOneWithoutPizzasInput
   }
 
@@ -9351,6 +9390,7 @@ export namespace Prisma {
     imageUrl: string
     categoryId: string
     rating: number
+    minPrice: number
   }
 
   export type PizzaCreateOrConnectWithoutVariantsInput = {
@@ -9405,6 +9445,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateOneRequiredWithoutPizzasNestedInput
   }
 
@@ -9415,6 +9456,7 @@ export namespace Prisma {
     imageUrl?: StringFieldUpdateOperationsInput | string
     categoryId?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type DoughTypeUpsertWithoutVariantsInput = {
@@ -9573,6 +9615,7 @@ export namespace Prisma {
     description: string
     imageUrl: string
     rating: number
+    minPrice: number
   }
 
   export type PizzaUpdateWithoutCategoryInput = {
@@ -9581,6 +9624,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
     variants?: PizzaVariantUpdateManyWithoutPizzaNestedInput
   }
 
@@ -9590,6 +9634,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
     variants?: PizzaVariantUncheckedUpdateManyWithoutPizzaNestedInput
   }
 
@@ -9599,6 +9644,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     rating?: FloatFieldUpdateOperationsInput | number
+    minPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type PizzaVariantCreateManyDoughTypeInput = {
