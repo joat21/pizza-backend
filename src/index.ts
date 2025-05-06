@@ -5,6 +5,7 @@ import passport from 'passport';
 import './auth';
 
 import * as PizzaController from './controllers/PizzaController';
+import * as CategoryController from './controllers/CategoryController';
 
 dotenv.config();
 
@@ -36,6 +37,8 @@ app.get(
 
 app.get('/pizza', PizzaController.getAll);
 app.get('/pizza/:id', PizzaController.getOneById);
+
+app.get('/categories', CategoryController.getAll);
 
 app.listen(PORT, (error) => {
   if (error) {
