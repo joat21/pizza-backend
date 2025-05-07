@@ -35,14 +35,15 @@ model Category {
 }
 
 model PizzaVariant {
-  id          String    @id @default(uuid())
-  Pizza       Pizza     @relation(fields: [pizzaId], references: [id])
+  id          String     @id @default(uuid())
+  pizza       Pizza      @relation(fields: [pizzaId], references: [id])
   pizzaId     String
-  doughType   DoughType @relation(fields: [doughTypeId], references: [id])
+  doughType   DoughType  @relation(fields: [doughTypeId], references: [id])
   doughTypeId String
-  pizzaSize   PizzaSize @relation(fields: [pizzaSizeId], references: [id])
+  pizzaSize   PizzaSize  @relation(fields: [pizzaSizeId], references: [id])
   pizzaSizeId String
   price       Int
+  cartItems   CartItem[]
 }
 
 model DoughType {
@@ -55,4 +56,21 @@ model PizzaSize {
   id       String         @id @default(uuid())
   size     Int
   variants PizzaVariant[]
+}
+
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String?
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id             String       @id @default(uuid())
+  cart           Cart         @relation(fields: [cartId], references: [id])
+  cartId         String
+  pizzaVariant   PizzaVariant @relation(fields: [pizzaVariantId], references: [id])
+  pizzaVariantId String
+  amount         Int
 }

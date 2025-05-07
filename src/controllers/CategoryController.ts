@@ -1,9 +1,9 @@
-import { Response, Request } from 'express';
+import { RequestHandler } from 'express';
 import { PrismaClient } from '../generated/prisma';
 
 const prisma = new PrismaClient();
 
-export const getAll = async (_req: Request, res: Response) => {
+export const getAll: RequestHandler = async (_req, res) => {
   const categories = await prisma.category.findMany({
     orderBy: { order: 'asc' },
   });

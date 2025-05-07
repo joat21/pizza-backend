@@ -1,13 +1,18 @@
-import { Response, Request } from 'express';
+import { Response, Request, RequestHandler } from 'express';
 import { PrismaClient } from '../generated/prisma';
 
 import { parseSortParam } from '../helpers/parseSortParam';
 
 const prisma = new PrismaClient();
 
-export const getAll = async (
-  req: Request<any, any, any, { categoryId: string; sortBy: string }>,
-  res: Response
+interface GetAllQuery {
+  categoryId: string;
+  sortBy: string;
+}
+
+export const getAll: RequestHandler<any, any, any, GetAllQuery> = async (
+  req,
+  res
 ) => {
   const { categoryId, sortBy } = req.query;
 
@@ -39,9 +44,13 @@ export const getAll = async (
   res.json(response);
 };
 
-export const getOneById = async (
-  req: Request<{ id: string }>,
-  res: Response
+interface GetOneByIdParams {
+  id: string;
+}
+
+export const getOneById: RequestHandler<GetOneByIdParams> = async (
+  req,
+  res
 ) => {
   const { id } = req.params;
 

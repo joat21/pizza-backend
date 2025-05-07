@@ -1,4 +1,4 @@
-import express, { Express, Response, Request } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import passport from 'passport';
 
@@ -6,6 +6,9 @@ import './auth';
 
 import * as PizzaController from './controllers/PizzaController';
 import * as CategoryController from './controllers/CategoryController';
+import * as CartController from './controllers/CartController';
+import * as AuthController from './controllers/AuthController';
+import { optionalAuth } from './middleware/optionalAuth';
 
 dotenv.config();
 
@@ -24,15 +27,7 @@ app.get(
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', { session: false }),
-  (req: Request, res: Response) => {
-    const { token } = req.user as { token: string };
-    res.send(`
-      <script>
-        window.opener.postMessage({ token: "${token}" }, "*");
-        window.close();
-      </script>
-    `);
-  }
+  AuthController.callbackHandler
 );
 
 app.get('/pizza', PizzaController.getAll);
@@ -40,10 +35,12 @@ app.get('/pizza/:id', PizzaController.getOneById);
 
 app.get('/categories', CategoryController.getAll);
 
+app.get('/cart', optionalAuth, CartController.getItems);
+
 app.listen(PORT, (error) => {
   if (error) {
     return console.log(error);
   }
 
-  console.log(`[Server]: Server started at http://localhost:${PORT}`);
+  console.log(`[Server]: Server listening at http://localhost:${PORT}`);
 });

@@ -1,14 +1,11 @@
 import passport from 'passport';
 import { Strategy as GitHubStrategy, Profile } from 'passport-github2';
 import { VerifyCallback } from 'passport-oauth2';
-import dotenv from 'dotenv';
 
 import { PrismaClient } from './generated/prisma';
 import { DEFAULT_AVATAR_URL } from './config/constants';
 import { signToken } from './helpers/signToken';
-import { Role } from './config/types';
-
-dotenv.config();
+import { Role } from './types';
 
 const prisma = new PrismaClient();
 
@@ -45,7 +42,7 @@ passport.use(
           });
         }
 
-        const token = signToken(user.id, Role.User);
+        const token = signToken({ id: user.id, role: Role.User });
 
         return done(null, { token });
       } catch (error) {

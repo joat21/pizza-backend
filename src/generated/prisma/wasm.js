@@ -161,6 +161,20 @@ exports.Prisma.PizzaSizeScalarFieldEnum = {
   size: 'size'
 };
 
+exports.Prisma.CartScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CartItemScalarFieldEnum = {
+  id: 'id',
+  cartId: 'cartId',
+  pizzaVariantId: 'pizzaVariantId',
+  amount: 'amount'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -171,6 +185,11 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
   User: 'User',
@@ -178,7 +197,9 @@ exports.Prisma.ModelName = {
   Category: 'Category',
   PizzaVariant: 'PizzaVariant',
   DoughType: 'DoughType',
-  PizzaSize: 'PizzaSize'
+  PizzaSize: 'PizzaSize',
+  Cart: 'Cart',
+  CartItem: 'CartItem'
 };
 
 /**
