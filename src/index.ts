@@ -8,7 +8,9 @@ import * as PizzaController from './controllers/PizzaController';
 import * as CategoryController from './controllers/CategoryController';
 import * as CartController from './controllers/CartController';
 import * as AuthController from './controllers/AuthController';
+
 import { optionalAuth } from './middleware/optionalAuth';
+import { errorHandler } from './helpers/errorHandler';
 
 dotenv.config();
 
@@ -36,6 +38,8 @@ app.get('/cart', optionalAuth, CartController.getItems);
 app.patch('/cart/:id', optionalAuth, CartController.updateItem);
 app.delete('/cart/:id', optionalAuth, CartController.deleteItem);
 app.post('/cart', optionalAuth, CartController.addItem);
+
+app.use(errorHandler);
 
 app.listen(PORT, (error) => {
   if (error) {
