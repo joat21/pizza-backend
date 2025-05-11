@@ -1,4 +1,4 @@
-import { Response, Request, RequestHandler } from 'express';
+import { RequestHandler } from 'express';
 import { PrismaClient } from '../generated/prisma';
 
 import { parseSortParam } from '../helpers/parseSortParam';
@@ -10,10 +10,7 @@ interface GetAllQuery {
   sortBy: string;
 }
 
-export const getAll: RequestHandler<any, any, any, GetAllQuery> = async (
-  req,
-  res
-) => {
+export const getAll: RequestHandler<any, any, any, GetAllQuery> = async (req, res) => {
   const { categoryId, sortBy } = req.query;
 
   const orderBy = parseSortParam(sortBy);
@@ -48,10 +45,7 @@ interface GetOneByIdParams {
   id: string;
 }
 
-export const getOneById: RequestHandler<GetOneByIdParams> = async (
-  req,
-  res
-) => {
+export const getOneById: RequestHandler<GetOneByIdParams> = async (req, res) => {
   const { id } = req.params;
 
   const pizza = await prisma.pizza.findUnique({
