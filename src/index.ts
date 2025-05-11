@@ -34,6 +34,8 @@ app.get('/categories', CategoryController.getAll);
 
 app.get('/cart', optionalAuth, CartController.getItems);
 app.patch('/cart/:id', optionalAuth, CartController.updateItem);
+app.delete('/cart/:id', optionalAuth, CartController.deleteItem);
+app.post('/cart', optionalAuth, CartController.addItem);
 
 app.listen(PORT, (error) => {
   if (error) {
