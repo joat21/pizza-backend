@@ -9,10 +9,12 @@ datasource db {
 }
 
 model User {
-  id        String @id @default(uuid())
-  githubId  String @unique
-  name      String
-  avatarUrl String
+  id            String @id @default(uuid())
+  oauthId       String @unique
+  oauthProvider String
+  name          String
+  avatarUrl     String
+  cart          Cart?  @relation("UserCart")
 }
 
 model Pizza {
@@ -60,7 +62,8 @@ model PizzaSize {
 
 model Cart {
   id        String     @id @default(uuid())
-  userId    String?
+  user      User?      @relation("UserCart", fields: [userId], references: [id])
+  userId    String?    @unique
   items     CartItem[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt

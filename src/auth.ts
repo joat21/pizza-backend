@@ -11,8 +11,7 @@ const prisma = new PrismaClient();
 
 const PORT = process.env.PORT || 3000;
 const GITHUB_CALLBACK_URL =
-  process.env.GITHUB_CALLBACK_URL ||
-  `http://localhost:${PORT}/auth/github/callback`;
+  process.env.GITHUB_CALLBACK_URL || `http://localhost:${PORT}/auth/github/callback`;
 
 passport.use(
   new GitHubStrategy(
@@ -21,21 +20,17 @@ passport.use(
       clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
       callbackURL: process.env.GITHUB_CALLBACK_URL || GITHUB_CALLBACK_URL,
     },
-    async (
-      _accessToken: string,
-      _refreshToken: string,
-      profile: Profile,
-      done: VerifyCallback
-    ) => {
+    async (_accessToken: string, _refreshToken: string, profile: Profile, done: VerifyCallback) => {
       try {
         let user = await prisma.user.findUnique({
-          where: { githubId: profile.id },
+          where: { oauthId: profile.id },
         });
 
         if (!user) {
           user = await prisma.user.create({
             data: {
-              githubId: profile.id,
+              oauthId: profile.id,
+              oauthProvider: profile.provider,
               name: profile.username || profile.displayName,
               avatarUrl: profile.photos?.[0]?.value || DEFAULT_AVATAR_URL,
             },
@@ -48,6 +43,6 @@ passport.use(
       } catch (error) {
         return done(error);
       }
-    }
-  )
+    },
+  ),
 );
