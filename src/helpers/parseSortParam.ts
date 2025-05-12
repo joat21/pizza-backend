@@ -1,8 +1,6 @@
 const validSortFields = ['minPrice', 'title', 'rating'];
 
-export const parseSortParam = (
-  sortBy: string
-): { [field: string]: 'asc' | 'desc' } => {
+export const parseSortParam = (sortBy?: string): { [field: string]: 'asc' | 'desc' } => {
   if (!sortBy) {
     return { rating: 'desc' };
   }

@@ -1,13 +1,10 @@
 import { RequestHandler } from 'express';
 import { PrismaClient } from '../generated/prisma';
+import { AddCartItemBody, CartItemParams, CartItemQuery, UpdateCartItemBody } from '../types/cart';
 
 const prisma = new PrismaClient();
 
-type GetItemsQuery = {
-  cartId?: string;
-};
-
-export const getItems: RequestHandler<any, any, any, GetItemsQuery> = async (req, res, next) => {
+export const getItems: RequestHandler<any, any, any, CartItemQuery> = async (req, res, next) => {
   try {
     const userId = req.user?.id;
     const { cartId } = req.query;
@@ -66,15 +63,7 @@ export const getItems: RequestHandler<any, any, any, GetItemsQuery> = async (req
   }
 };
 
-type UpdateOneParams = {
-  id: string;
-};
-
-type UpdateOneBody = {
-  amount: number;
-};
-
-export const updateItem: RequestHandler<UpdateOneParams, any, UpdateOneBody> = async (
+export const updateItem: RequestHandler<CartItemParams, any, UpdateCartItemBody> = async (
   req,
   res,
   next,
@@ -103,7 +92,7 @@ export const updateItem: RequestHandler<UpdateOneParams, any, UpdateOneBody> = a
   }
 };
 
-export const deleteItem: RequestHandler<{ id: string }> = async (req, res, next) => {
+export const deleteItem: RequestHandler<CartItemParams> = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -122,31 +111,39 @@ export const deleteItem: RequestHandler<{ id: string }> = async (req, res, next)
   }
 };
 
-export const addItem: RequestHandler<
-  any,
-  any,
-  { pizzaVariantId: string },
-  { cartId?: string }
-> = async (req, res, next) => {
+export const addItem: RequestHandler<any, any, AddCartItemBody, CartItemQuery> = async (
+  req,
+  res,
+  next,
+) => {
   try {
     const userId = req.user?.id;
     const { pizzaVariantId } = req.body;
     const { cartId } = req.query;
 
+    const pizzaVariant = await prisma.pizzaVariant.findUnique({
+      where: { id: pizzaVariantId },
+    });
+
+    if (!pizzaVariant) {
+      res.status(404).json({ message: 'Pizza variant not found' });
+      return;
+    }
+
     let cart;
 
     if (userId) {
-      cart = await prisma.cart.findFirst({ where: { userId } });
-
-      if (!cart) {
-        cart = await prisma.cart.create({ data: { userId } });
-      }
+      cart = await prisma.cart.upsert({
+        where: { userId },
+        create: { userId },
+        update: {},
+      });
     } else if (cartId) {
-      cart = await prisma.cart.findUnique({ where: { id: cartId } });
-
-      if (!cart) {
-        cart = await prisma.cart.create({ data: {} });
-      }
+      cart = await prisma.cart.upsert({
+        where: { id: cartId },
+        create: { id: cartId },
+        update: {},
+      });
     } else {
       res.status(404).json({ message: 'Cart not found' });
       return;

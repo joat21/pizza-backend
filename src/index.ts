@@ -10,7 +10,16 @@ import * as CartController from './controllers/CartController';
 import * as AuthController from './controllers/AuthController';
 
 import { optionalAuth } from './middleware/optionalAuth';
+import { validate } from './middleware/validate';
 import { errorHandler } from './helpers/errorHandler';
+
+import {
+  AddCartItemBodySchema,
+  CartItemParamsSchema,
+  CartItemQuerySchema,
+  UpdateCartItemBodySchema,
+} from './schemas/cart';
+import { PizzaParamsSchema, PizzaQuerySchema } from './schemas/pizza';
 
 dotenv.config();
 
@@ -29,15 +38,30 @@ app.get(
   AuthController.callbackHandler,
 );
 
-app.get('/pizza', PizzaController.getAll);
-app.get('/pizza/:id', PizzaController.getOneById);
+app.get('/pizza', validate({ query: PizzaQuerySchema }), PizzaController.getAll);
+app.get('/pizza/:id', validate({ params: PizzaParamsSchema }), PizzaController.getOneById);
 
 app.get('/categories', CategoryController.getAll);
 
-app.get('/cart', optionalAuth, CartController.getItems);
-app.patch('/cart/:id', optionalAuth, CartController.updateItem);
-app.delete('/cart/:id', optionalAuth, CartController.deleteItem);
-app.post('/cart', optionalAuth, CartController.addItem);
+app.get('/cart', optionalAuth, validate({ query: CartItemQuerySchema }), CartController.getItems);
+app.patch(
+  '/cart/:id',
+  optionalAuth,
+  validate({ params: CartItemParamsSchema, body: UpdateCartItemBodySchema }),
+  CartController.updateItem,
+);
+app.delete(
+  '/cart/:id',
+  optionalAuth,
+  validate({ params: CartItemParamsSchema }),
+  CartController.deleteItem,
+);
+app.post(
+  '/cart',
+  optionalAuth,
+  validate({ body: AddCartItemBodySchema, query: CartItemQuerySchema }),
+  CartController.addItem,
+);
 
 app.use(errorHandler);
 
