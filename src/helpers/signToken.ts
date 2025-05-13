@@ -1,11 +1,20 @@
 import jwt from 'jsonwebtoken';
 
-export const signToken = (payload: jwt.JwtPayload) =>
+type ExpirationTime =
+  | `${number}ms`
+  | `${number}s`
+  | `${number}m`
+  | `${number}h`
+  | `${number}d`
+  | `${number}w`
+  | number;
+
+export const signToken = (payload: jwt.JwtPayload, secret: string, expiresIn: ExpirationTime) =>
   jwt.sign(
     {
       id: payload.id,
       role: payload.role,
     },
-    process.env.JWT_SECRET!,
-    { expiresIn: '30d' }
+    secret,
+    { expiresIn: expiresIn },
   );
