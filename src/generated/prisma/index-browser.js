@@ -176,6 +176,26 @@ exports.Prisma.CartItemScalarFieldEnum = {
   amount: 'amount'
 };
 
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  totalPrice: 'totalPrice',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  address: 'address',
+  comment: 'comment',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  pizzaVariantId: 'pizzaVariantId',
+  amount: 'amount',
+  priceAtOrder: 'priceAtOrder'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -200,7 +220,9 @@ exports.Prisma.ModelName = {
   DoughType: 'DoughType',
   PizzaSize: 'PizzaSize',
   Cart: 'Cart',
-  CartItem: 'CartItem'
+  CartItem: 'CartItem',
+  Order: 'Order',
+  OrderItem: 'OrderItem'
 };
 
 /**

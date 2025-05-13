@@ -8,6 +8,7 @@ import * as PizzaController from './controllers/PizzaController';
 import * as CategoryController from './controllers/CategoryController';
 import * as CartController from './controllers/CartController';
 import * as AuthController from './controllers/AuthController';
+import * as OrderController from './controllers/OrderController';
 
 import { optionalAuth } from './middleware/optionalAuth';
 import { validate } from './middleware/validate';
@@ -20,6 +21,7 @@ import {
   UpdateCartItemBodySchema,
 } from './schemas/cart';
 import { PizzaParamsSchema, PizzaQuerySchema } from './schemas/pizza';
+import { OrderBodySchema, OrderQuerySchema } from './schemas/order';
 
 dotenv.config();
 
@@ -62,6 +64,14 @@ app.post(
   validate({ body: AddCartItemBodySchema, query: CartItemQuerySchema }),
   CartController.addItem,
 );
+
+app.post(
+  '/order',
+  optionalAuth,
+  validate({ body: OrderBodySchema, query: OrderQuerySchema }),
+  OrderController.create,
+);
+app.get('/order', optionalAuth, OrderController.getAll);
 
 app.use(errorHandler);
 

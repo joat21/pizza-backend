@@ -9,12 +9,13 @@ datasource db {
 }
 
 model User {
-  id            String @id @default(uuid())
-  oauthId       String @unique
+  id            String  @id @default(uuid())
+  oauthId       String  @unique
   oauthProvider String
   name          String
   avatarUrl     String
-  cart          Cart?  @relation("UserCart")
+  cart          Cart?
+  orders        Order[]
 }
 
 model Pizza {
@@ -37,15 +38,16 @@ model Category {
 }
 
 model PizzaVariant {
-  id          String     @id @default(uuid())
-  pizza       Pizza      @relation(fields: [pizzaId], references: [id])
+  id          String      @id @default(uuid())
+  pizza       Pizza       @relation(fields: [pizzaId], references: [id])
   pizzaId     String
-  doughType   DoughType  @relation(fields: [doughTypeId], references: [id])
+  doughType   DoughType   @relation(fields: [doughTypeId], references: [id])
   doughTypeId String
-  pizzaSize   PizzaSize  @relation(fields: [pizzaSizeId], references: [id])
+  pizzaSize   PizzaSize   @relation(fields: [pizzaSizeId], references: [id])
   pizzaSizeId String
   price       Int
   cartItems   CartItem[]
+  orderItems  OrderItem[]
 }
 
 model DoughType {
@@ -62,7 +64,7 @@ model PizzaSize {
 
 model Cart {
   id        String     @id @default(uuid())
-  user      User?      @relation("UserCart", fields: [userId], references: [id])
+  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String?    @unique
   items     CartItem[]
   createdAt DateTime   @default(now())
@@ -71,9 +73,33 @@ model Cart {
 
 model CartItem {
   id             String       @id @default(uuid())
-  cart           Cart         @relation(fields: [cartId], references: [id])
+  cart           Cart         @relation(fields: [cartId], references: [id], onDelete: Cascade)
   cartId         String
   pizzaVariant   PizzaVariant @relation(fields: [pizzaVariantId], references: [id])
   pizzaVariantId String
   amount         Int
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  user       User?       @relation(fields: [userId], references: [id])
+  userId     String?     @unique
+  totalPrice Int
+  fullName   String
+  email      String
+  phone      String
+  address    String
+  comment    String?
+  items      OrderItem[]
+  createdAt  DateTime    @default(now())
+}
+
+model OrderItem {
+  id             String       @id @default(uuid())
+  order          Order        @relation(fields: [orderId], references: [id])
+  orderId        String
+  pizzaVariant   PizzaVariant @relation(fields: [pizzaVariantId], references: [id])
+  pizzaVariantId String
+  amount         Int
+  priceAtOrder   Int
 }
