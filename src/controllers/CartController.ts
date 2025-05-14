@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import { PrismaClient } from '../generated/prisma';
 import { AddCartItemBody, CartItemParams, UpdateCartItemBody } from '../types/cart';
+import { getOrCreateCart, getOrCreatePopulatedCart } from '../db/cart';
 
 const prisma = new PrismaClient();
 
@@ -9,38 +10,7 @@ export const getItems: RequestHandler = async (req, res, next) => {
     const userId = req.user?.id;
     const guestCartId = req.guestCartId;
 
-    let where;
-
-    if (userId) {
-      where = { userId };
-    } else if (guestCartId) {
-      where = { id: guestCartId };
-    } else {
-      res.status(404).json({ message: 'Cart not found' });
-      return;
-    }
-
-    const cart = await prisma.cart.findFirst({
-      where,
-      include: {
-        items: {
-          include: {
-            pizzaVariant: {
-              include: {
-                doughType: true,
-                pizzaSize: true,
-                pizza: {
-                  select: {
-                    title: true,
-                    imageUrl: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    });
+    const cart = await getOrCreatePopulatedCart(userId, guestCartId);
 
     if (!cart) {
       res.status(404).json({ message: 'Cart not found' });
@@ -126,21 +96,9 @@ export const addItem: RequestHandler<any, any, AddCartItemBody> = async (req, re
       return;
     }
 
-    let cart;
+    const cart = await getOrCreateCart(userId, guestCartId);
 
-    if (userId) {
-      cart = await prisma.cart.upsert({
-        where: { userId },
-        create: { userId },
-        update: {},
-      });
-    } else if (guestCartId) {
-      cart = await prisma.cart.upsert({
-        where: { id: guestCartId },
-        create: { id: guestCartId },
-        update: {},
-      });
-    } else {
+    if (!cart) {
       res.status(404).json({ message: 'Cart not found' });
       return;
     }
@@ -172,6 +130,26 @@ export const addItem: RequestHandler<any, any, AddCartItemBody> = async (req, re
 
       res.sendStatus(201);
     }
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const clear: RequestHandler = async (req, res, next) => {
+  try {
+    const userId = req.user?.id;
+    const guestCartId = req.guestCartId;
+
+    const cart = await getOrCreateCart(userId, guestCartId);
+
+    if (!cart) {
+      res.status(404).json({ message: 'Cart not found' });
+      return;
+    }
+
+    await prisma.cartItem.deleteMany({ where: { cartId: cart.id } });
+
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }
