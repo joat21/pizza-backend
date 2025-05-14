@@ -1,19 +1,28 @@
 import { RequestHandler } from 'express';
 import { signToken } from '../helpers/signToken';
 import { Role } from '../types';
+import { mergeGuestAndUSerCarts } from '../helpers/mergeGuestAndUserCarts';
 
 export const callbackHandler: RequestHandler = async (req, res, next) => {
   try {
     const user = req.user;
 
+    if (!user) {
+      throw new Error('User not found in request');
+    }
+
+    console.log(user.id, req.cookies.cartId);
+
+    await mergeGuestAndUSerCarts(user.id, req.cookies.cartId);
+
     const accessToken = signToken(
-      { id: user?.id!, role: Role.User },
+      { id: user.id, role: Role.User },
       process.env.JWT_ACCESS_SECRET!,
       '15m',
     );
 
     const refreshToken = signToken(
-      { id: user?.id!, role: Role.User },
+      { id: user.id, role: Role.User },
       process.env.JWT_REFRESH_SECRET!,
       '7d',
     );
