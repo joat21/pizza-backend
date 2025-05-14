@@ -6,8 +6,8 @@ export const verifyAndRefreshTokens = async (
   req: Request,
   res: Response,
 ): Promise<{ valid: boolean; accessToken?: jwt.JwtPayload }> => {
-  const accessToken = req.cookies['access_token'];
-  const refreshToken = req.cookies['refresh_token'];
+  const accessToken = req.cookies.accessToken;
+  const refreshToken = req.cookies.refreshToken;
 
   try {
     const decodedAccess = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET!) as jwt.JwtPayload;
@@ -26,7 +26,7 @@ export const verifyAndRefreshTokens = async (
         '15m',
       );
 
-      res.cookie('access_token', newAccessToken, {
+      res.cookie('accessToken', newAccessToken, {
         httpOnly: true,
         sameSite: 'none',
         secure: true,
@@ -35,10 +35,10 @@ export const verifyAndRefreshTokens = async (
 
       return { valid: true, accessToken: jwt.decode(newAccessToken) as jwt.JwtPayload };
     } catch (error) {
-      res.clearCookie('access_token');
-      res.clearCookie('refresh_token');
+      res.clearCookie('accessToken');
+      res.clearCookie('refreshToken');
 
-      console.log(error);
+      console.error(error);
 
       return { valid: false };
     }

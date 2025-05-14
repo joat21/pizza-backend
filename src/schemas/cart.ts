@@ -11,7 +11,3 @@ export const UpdateCartItemBodySchema = z.object({
 export const AddCartItemBodySchema = z.object({
   pizzaVariantId: z.string().uuid(),
 });
-
-export const CartItemQuerySchema = z.object({
-  cartId: z.string().uuid().optional(),
-});

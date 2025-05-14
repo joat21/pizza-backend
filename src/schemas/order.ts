@@ -13,7 +13,3 @@ export const OrderBodySchema = z.object({
   address: z.string().nonempty(),
   comment: z.string().optional(),
 });
-
-export const OrderQuerySchema = z.object({
-  cartId: z.string().optional(),
-});

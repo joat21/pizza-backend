@@ -5,7 +5,7 @@ import { PrismaClient } from '../generated/prisma';
 const prisma = new PrismaClient();
 
 export const getUserByToken: RequestHandler = async (req, _res, next) => {
-  const accessToken = req.cookies['access_token'];
+  const accessToken = req.cookies.accessToken;
 
   if (!accessToken) {
     next();
@@ -23,7 +23,7 @@ export const getUserByToken: RequestHandler = async (req, _res, next) => {
       }
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
   next();

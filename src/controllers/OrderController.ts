@@ -1,14 +1,14 @@
 import { RequestHandler } from 'express';
 import { PrismaClient } from '../generated/prisma';
-import { OrderBody, OrderQuery } from '../types/order';
+import { OrderBody } from '../types/order';
 
 const prisma = new PrismaClient();
 
-export const create: RequestHandler<any, any, OrderBody, OrderQuery> = async (req, res, next) => {
+export const create: RequestHandler<any, any, OrderBody> = async (req, res, next) => {
   try {
     const userId = req.user?.id;
+    const guestCartId = req.guestCartId;
     const { name, surname, email, phone, address, comment } = req.body;
-    const { cartId } = req.query;
 
     let cart;
 
@@ -18,10 +18,10 @@ export const create: RequestHandler<any, any, OrderBody, OrderQuery> = async (re
         create: { userId },
         update: {},
       });
-    } else if (cartId) {
+    } else if (guestCartId) {
       cart = await prisma.cart.upsert({
-        where: { id: cartId },
-        create: { id: cartId },
+        where: { id: guestCartId },
+        create: { id: guestCartId },
         update: {},
       });
     } else {

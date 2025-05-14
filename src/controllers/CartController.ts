@@ -1,20 +1,20 @@
 import { RequestHandler } from 'express';
 import { PrismaClient } from '../generated/prisma';
-import { AddCartItemBody, CartItemParams, CartItemQuery, UpdateCartItemBody } from '../types/cart';
+import { AddCartItemBody, CartItemParams, UpdateCartItemBody } from '../types/cart';
 
 const prisma = new PrismaClient();
 
-export const getItems: RequestHandler<any, any, any, CartItemQuery> = async (req, res, next) => {
+export const getItems: RequestHandler = async (req, res, next) => {
   try {
     const userId = req.user?.id;
-    const { cartId } = req.query;
+    const guestCartId = req.guestCartId;
 
     let where;
 
     if (userId) {
       where = { userId };
-    } else if (cartId) {
-      where = { id: cartId };
+    } else if (guestCartId) {
+      where = { id: guestCartId };
     } else {
       res.status(404).json({ message: 'Cart not found' });
       return;
@@ -111,15 +111,11 @@ export const deleteItem: RequestHandler<CartItemParams> = async (req, res, next)
   }
 };
 
-export const addItem: RequestHandler<any, any, AddCartItemBody, CartItemQuery> = async (
-  req,
-  res,
-  next,
-) => {
+export const addItem: RequestHandler<any, any, AddCartItemBody> = async (req, res, next) => {
   try {
     const userId = req.user?.id;
+    const guestCartId = req.guestCartId;
     const { pizzaVariantId } = req.body;
-    const { cartId } = req.query;
 
     const pizzaVariant = await prisma.pizzaVariant.findUnique({
       where: { id: pizzaVariantId },
@@ -138,10 +134,10 @@ export const addItem: RequestHandler<any, any, AddCartItemBody, CartItemQuery> =
         create: { userId },
         update: {},
       });
-    } else if (cartId) {
+    } else if (guestCartId) {
       cart = await prisma.cart.upsert({
-        where: { id: cartId },
-        create: { id: cartId },
+        where: { id: guestCartId },
+        create: { id: guestCartId },
         update: {},
       });
     } else {

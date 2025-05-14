@@ -2,8 +2,8 @@ import { RequestHandler } from 'express';
 import { verifyAndRefreshTokens } from '../helpers/verifyAndRefreshTokens';
 
 export const authTokensHandler: RequestHandler = async (req, res, next) => {
-  const accessToken = req.cookies['access_token'];
-  const refreshToken = req.cookies['refresh_token'];
+  const accessToken = req.cookies.accessToken;
+  const refreshToken = req.cookies.refreshToken;
 
   if (!accessToken && !refreshToken) {
     next();

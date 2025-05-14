@@ -14,17 +14,17 @@ import * as OrderController from './controllers/OrderController';
 import { authTokensHandler } from './middleware/authTokensHandler';
 import { getUserByToken } from './middleware/getUserByToken';
 import { validate } from './middleware/validate';
+import { requireAuth } from './middleware/requireAuth';
+import { guestCartHandler } from './middleware/guestCartHandler';
 import { errorHandler } from './helpers/errorHandler';
 
 import {
   AddCartItemBodySchema,
   CartItemParamsSchema,
-  CartItemQuerySchema,
   UpdateCartItemBodySchema,
 } from './schemas/cart';
 import { PizzaParamsSchema, PizzaQuerySchema } from './schemas/pizza';
-import { OrderBodySchema, OrderQuerySchema } from './schemas/order';
-import { requireAuth } from './middleware/requireAuth';
+import { OrderBodySchema } from './schemas/order';
 
 dotenv.config();
 
@@ -38,6 +38,7 @@ app.use(passport.initialize());
 
 app.use(authTokensHandler);
 app.use(getUserByToken);
+app.use(guestCartHandler);
 
 app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
 
@@ -52,31 +53,23 @@ app.get('/pizza/:id', validate({ params: PizzaParamsSchema }), PizzaController.g
 
 app.get('/categories', CategoryController.getAll);
 
-app.get('/cart', validate({ query: CartItemQuerySchema }), CartController.getItems);
+app.get('/cart', CartController.getItems);
 app.patch(
   '/cart/:id',
   validate({ params: CartItemParamsSchema, body: UpdateCartItemBodySchema }),
   CartController.updateItem,
 );
 app.delete('/cart/:id', validate({ params: CartItemParamsSchema }), CartController.deleteItem);
-app.post(
-  '/cart',
-  validate({ body: AddCartItemBodySchema, query: CartItemQuerySchema }),
-  CartController.addItem,
-);
+app.post('/cart', validate({ body: AddCartItemBodySchema }), CartController.addItem);
 
-app.post(
-  '/order',
-  validate({ body: OrderBodySchema, query: OrderQuerySchema }),
-  OrderController.create,
-);
+app.post('/order', validate({ body: OrderBodySchema }), OrderController.create);
 app.get('/order', requireAuth, OrderController.getAll);
 
 app.use(errorHandler);
 
 app.listen(PORT, (error) => {
   if (error) {
-    return console.log(error);
+    return console.error(error);
   }
 
   console.log(`[Server]: Server listening at http://localhost:${PORT}`);
