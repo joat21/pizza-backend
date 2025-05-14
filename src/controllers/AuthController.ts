@@ -18,14 +18,14 @@ export const callbackHandler: RequestHandler = async (req, res, next) => {
       '7d',
     );
 
-    res.cookie('access_token', accessToken, {
+    res.cookie('accessToken', accessToken, {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
       maxAge: 15 * 60 * 1000,
     });
 
-    res.cookie('refresh_token', refreshToken, {
+    res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
