@@ -2,7 +2,7 @@ import { PrismaClient } from '../generated/prisma';
 
 const prisma = new PrismaClient();
 
-export const mergeGuestAndUSerCarts = async (userId: string, guestCartId?: string) => {
+export const mergeGuestAndUserCarts = async (userId: string, guestCartId?: string) => {
   try {
     if (!guestCartId) {
       return;

@@ -44,7 +44,7 @@ app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] 
 
 app.get(
   '/auth/github/callback',
-  passport.authenticate('github', { session: false }),
+  passport.authenticate('github', { session: false, failureRedirect: process.env.FRONTEND_URL }),
   AuthController.callbackHandler,
 );
 

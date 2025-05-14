@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { signToken } from '../helpers/signToken';
 import { Role } from '../types';
-import { mergeGuestAndUSerCarts } from '../helpers/mergeGuestAndUserCarts';
+import { mergeGuestAndUserCarts } from '../helpers/mergeGuestAndUserCarts';
 
 export const callbackHandler: RequestHandler = async (req, res, next) => {
   try {
@@ -11,9 +11,7 @@ export const callbackHandler: RequestHandler = async (req, res, next) => {
       throw new Error('User not found in request');
     }
 
-    console.log(user.id, req.cookies.cartId);
-
-    await mergeGuestAndUSerCarts(user.id, req.cookies.cartId);
+    await mergeGuestAndUserCarts(user.id, req.cookies.cartId);
 
     const accessToken = signToken(
       { id: user.id, role: Role.User },
