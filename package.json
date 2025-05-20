@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --files src/index.ts"
+    "dev": "npx prisma generate && nodemon --files src/index.ts",
+    "build": "npx prisma generate && tsc",
+    "start": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
