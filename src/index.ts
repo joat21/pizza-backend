@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import passport from 'passport';
 
 import './auth';
+import './tasks/cleanupOldGuestCarts';
 
 import * as PizzaController from './controllers/PizzaController';
 import * as CategoryController from './controllers/CategoryController';
@@ -16,6 +17,7 @@ import { getUserByToken } from './middleware/getUserByToken';
 import { validate } from './middleware/validate';
 import { requireAuth } from './middleware/requireAuth';
 import { guestCartHandler } from './middleware/guestCartHandler';
+
 import { errorHandler } from './helpers/errorHandler';
 
 import {
