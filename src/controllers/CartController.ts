@@ -1,9 +1,11 @@
 import { RequestHandler } from 'express';
-import { PrismaClient } from '../generated/prisma';
-import { AddCartItemBody, CartItemParams, UpdateCartItemBody } from '../types/cart';
+import { prisma } from '../prismaClient';
+import {
+  AddCartItemBody,
+  CartItemParams,
+  UpdateCartItemBody,
+} from '../types/cart';
 import { getOrCreateCart, getOrCreatePopulatedCart } from '../db/cart';
-
-const prisma = new PrismaClient();
 
 export const getItems: RequestHandler = async (req, res, next) => {
   try {
@@ -33,11 +35,11 @@ export const getItems: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const updateItem: RequestHandler<CartItemParams, any, UpdateCartItemBody> = async (
-  req,
-  res,
-  next,
-) => {
+export const updateItem: RequestHandler<
+  CartItemParams,
+  any,
+  UpdateCartItemBody
+> = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { amount } = req.body;
@@ -62,7 +64,11 @@ export const updateItem: RequestHandler<CartItemParams, any, UpdateCartItemBody>
   }
 };
 
-export const deleteItem: RequestHandler<CartItemParams> = async (req, res, next) => {
+export const deleteItem: RequestHandler<CartItemParams> = async (
+  req,
+  res,
+  next
+) => {
   try {
     const { id } = req.params;
 
@@ -81,7 +87,11 @@ export const deleteItem: RequestHandler<CartItemParams> = async (req, res, next)
   }
 };
 
-export const addItem: RequestHandler<any, any, AddCartItemBody> = async (req, res, next) => {
+export const addItem: RequestHandler<any, any, AddCartItemBody> = async (
+  req,
+  res,
+  next
+) => {
   try {
     const userId = req.user?.id;
     const guestCartId = req.guestCartId;

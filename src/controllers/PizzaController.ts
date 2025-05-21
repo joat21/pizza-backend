@@ -1,12 +1,14 @@
 import { RequestHandler } from 'express';
-import { PrismaClient } from '../generated/prisma';
+import { prisma } from '../prismaClient';
 
 import { parseSortParam } from '../helpers/parseSortParam';
 import { PizzaParams, PizzaQuery } from '../types/pizza';
 
-const prisma = new PrismaClient();
-
-export const getAll: RequestHandler<any, any, any, PizzaQuery> = async (req, res, next) => {
+export const getAll: RequestHandler<any, any, any, PizzaQuery> = async (
+  req,
+  res,
+  next
+) => {
   try {
     const { categoryId, sortBy } = req.query;
 
@@ -41,7 +43,11 @@ export const getAll: RequestHandler<any, any, any, PizzaQuery> = async (req, res
   }
 };
 
-export const getOneById: RequestHandler<PizzaParams> = async (req, res, next) => {
+export const getOneById: RequestHandler<PizzaParams> = async (
+  req,
+  res,
+  next
+) => {
   try {
     const { id } = req.params;
 

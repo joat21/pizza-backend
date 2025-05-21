@@ -1,7 +1,5 @@
 import { RequestHandler } from 'express';
-import { PrismaClient } from '../generated/prisma';
-
-const prisma = new PrismaClient();
+import { prisma } from '../prismaClient';
 
 export const getAll: RequestHandler = async (_req, res, next) => {
   try {

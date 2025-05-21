@@ -28,7 +28,7 @@ import { OrderBodySchema } from './schemas/order';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = 8080;
 
 const app: Express = express();
 
@@ -67,7 +67,7 @@ app.get('/order', requireAuth, OrderController.getAll);
 
 app.use(errorHandler);
 
-app.listen(PORT, (error) => {
+app.listen(PORT, '0.0.0.0', (error) => {
   if (error) {
     return console.error(error);
   }

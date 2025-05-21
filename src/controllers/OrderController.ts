@@ -1,10 +1,12 @@
 import { RequestHandler } from 'express';
-import { PrismaClient } from '../generated/prisma';
+import { prisma } from '../prismaClient';
 import { OrderBody } from '../types/order';
 
-const prisma = new PrismaClient();
-
-export const create: RequestHandler<any, any, OrderBody> = async (req, res, next) => {
+export const create: RequestHandler<any, any, OrderBody> = async (
+  req,
+  res,
+  next
+) => {
   try {
     const userId = req.user?.id;
     const guestCartId = req.guestCartId;
@@ -56,8 +58,9 @@ export const create: RequestHandler<any, any, OrderBody> = async (req, res, next
           address,
           comment,
           totalPrice: cartItems.reduce(
-            (sum, cartItem) => sum + cartItem.pizzaVariant.price * cartItem.amount,
-            0,
+            (sum, cartItem) =>
+              sum + cartItem.pizzaVariant.price * cartItem.amount,
+            0
           ),
           userId,
         },

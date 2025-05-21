@@ -1,8 +1,9 @@
-import { PrismaClient } from '../generated/prisma';
+import { prisma } from '../prismaClient';
 
-const prisma = new PrismaClient();
-
-export const mergeGuestAndUserCarts = async (userId: string, guestCartId?: string) => {
+export const mergeGuestAndUserCarts = async (
+  userId: string,
+  guestCartId?: string
+) => {
   try {
     if (!guestCartId) {
       return;

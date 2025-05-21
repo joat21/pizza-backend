@@ -1,8 +1,9 @@
-import { PrismaClient, Cart } from '../generated/prisma';
+import { prisma } from '../prismaClient';
 
-const prisma = new PrismaClient();
-
-export const getOrCreateCart = async (userId?: string, guestCartId?: string) => {
+export const getOrCreateCart = async (
+  userId?: string,
+  guestCartId?: string
+) => {
   let cart = null;
 
   if (userId) {
@@ -22,7 +23,10 @@ export const getOrCreateCart = async (userId?: string, guestCartId?: string) => 
   return cart;
 };
 
-export const getOrCreatePopulatedCart = async (userId?: string, guestCartId?: string) => {
+export const getOrCreatePopulatedCart = async (
+  userId?: string,
+  guestCartId?: string
+) => {
   const cart = await getOrCreateCart(userId, guestCartId);
 
   if (!cart) {

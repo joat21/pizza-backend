@@ -2,10 +2,8 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy, Profile } from 'passport-github2';
 import { VerifyCallback } from 'passport-oauth2';
 
-import { PrismaClient } from './generated/prisma';
+import { prisma } from './prismaClient';
 import { DEFAULT_AVATAR_URL } from './config/constants';
-
-const prisma = new PrismaClient();
 
 const PORT = process.env.PORT || 3000;
 const GITHUB_CALLBACK_URL =

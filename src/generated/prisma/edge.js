@@ -207,7 +207,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Learning\\Web\\pizza-backend\\src\\generated\\prisma",
+      "value": "C:\\JS\\pizza-backend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -221,7 +221,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\Learning\\Web\\pizza-backend\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\JS\\pizza-backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
