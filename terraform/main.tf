@@ -161,7 +161,7 @@ resource "yandex_function_trigger" "db_starter_timer" {
     service_account_id = var.service_account_id
   }
   timer {
-    cron_expression = "0 6 ? * SUN"
+    cron_expression = "0 1 ? * SUN"
   }
 
   depends_on = [
@@ -201,7 +201,7 @@ resource "yandex_function_trigger" "db_stopper_timer" {
     service_account_id = var.service_account_id
   }
   timer {
-    cron_expression = "0 1 ? * MON"
+    cron_expression = "0 19 ? * SUN"
   }
 
   depends_on = [
