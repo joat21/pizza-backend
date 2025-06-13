@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Pizza" ALTER COLUMN "overviewImageUrl" DROP DEFAULT,
+ALTER COLUMN "slug" DROP DEFAULT;

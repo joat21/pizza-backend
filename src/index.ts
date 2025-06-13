@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import passport from 'passport';
+import cors from 'cors';
 
 import './auth';
 import './tasks/cleanupOldGuestCarts';
@@ -38,20 +39,41 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(passport.initialize());
 
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
+
 app.use(authTokensHandler);
 app.use(getUserByToken);
 app.use(guestCartHandler);
 
-app.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
+app.get(
+  '/auth/github',
+  passport.authenticate('github', { scope: ['user:email'] })
+);
 
 app.get(
   '/auth/github/callback',
-  passport.authenticate('github', { session: false, failureRedirect: process.env.FRONTEND_URL }),
-  AuthController.callbackHandler,
+  passport.authenticate('github', {
+    session: false,
+    failureRedirect: process.env.FRONTEND_URL,
+  }),
+  AuthController.callbackHandler
 );
 
-app.get('/pizza', validate({ query: PizzaQuerySchema }), PizzaController.getAll);
-app.get('/pizza/:id', validate({ params: PizzaParamsSchema }), PizzaController.getOneById);
+app.get(
+  '/pizza',
+  validate({ query: PizzaQuerySchema }),
+  PizzaController.getAll
+);
+app.get(
+  '/pizza/:id',
+  validate({ params: PizzaParamsSchema }),
+  PizzaController.getOneById
+);
 
 app.get('/categories', CategoryController.getAll);
 
@@ -59,10 +81,19 @@ app.get('/cart', CartController.getItems);
 app.patch(
   '/cart/:id',
   validate({ params: CartItemParamsSchema, body: UpdateCartItemBodySchema }),
-  CartController.updateItem,
+  CartController.updateItem
 );
-app.delete('/cart/:id', validate({ params: CartItemParamsSchema }), CartController.deleteItem);
-app.post('/cart', validate({ body: AddCartItemBodySchema }), CartController.addItem);
+app.delete(
+  '/cart/:id',
+  validate({ params: CartItemParamsSchema }),
+  CartController.deleteItem
+);
+app.post(
+  '/cart',
+  validate({ body: AddCartItemBodySchema }),
+  CartController.addItem
+);
+app.delete('/cart', CartController.clear);
 
 app.post('/order', validate({ body: OrderBodySchema }), OrderController.create);
 app.get('/order', requireAuth, OrderController.getAll);

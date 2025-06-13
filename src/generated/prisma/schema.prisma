@@ -19,15 +19,17 @@ model User {
 }
 
 model Pizza {
-  id          String         @id @default(uuid())
-  title       String
-  description String
-  imageUrl    String
-  category    Category       @relation(fields: [categoryId], references: [id])
-  categoryId  String
-  rating      Float
-  minPrice    Int
-  variants    PizzaVariant[]
+  id               String         @id @default(uuid())
+  title            String
+  description      String
+  imageUrl         String
+  overviewImageUrl String
+  category         Category       @relation(fields: [categoryId], references: [id])
+  categoryId       String
+  rating           Float
+  minPrice         Int
+  slug             String
+  variants         PizzaVariant[]
 }
 
 model Category {
@@ -78,6 +80,7 @@ model CartItem {
   pizzaVariant   PizzaVariant @relation(fields: [pizzaVariantId], references: [id])
   pizzaVariantId String
   amount         Int
+  createdAt      DateTime     @default(now())
 }
 
 model Order {

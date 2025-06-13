@@ -133,9 +133,11 @@ exports.Prisma.PizzaScalarFieldEnum = {
   title: 'title',
   description: 'description',
   imageUrl: 'imageUrl',
+  overviewImageUrl: 'overviewImageUrl',
   categoryId: 'categoryId',
   rating: 'rating',
-  minPrice: 'minPrice'
+  minPrice: 'minPrice',
+  slug: 'slug'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
@@ -173,7 +175,8 @@ exports.Prisma.CartItemScalarFieldEnum = {
   id: 'id',
   cartId: 'cartId',
   pizzaVariantId: 'pizzaVariantId',
-  amount: 'amount'
+  amount: 'amount',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {

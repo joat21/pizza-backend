@@ -27,6 +27,7 @@ export const getItems: RequestHandler = async (req, res, next) => {
       size: item.pizzaVariant.pizzaSize.size,
       title: item.pizzaVariant.pizza.title,
       imageUrl: item.pizzaVariant.pizza.imageUrl,
+      pizzaVariantId: item.pizzaVariantId,
     }));
 
     res.json(response);

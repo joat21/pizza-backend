@@ -16,13 +16,13 @@ export const callbackHandler: RequestHandler = async (req, res, next) => {
     const accessToken = signToken(
       { id: user.id, role: Role.User },
       process.env.JWT_ACCESS_SECRET!,
-      '15m',
+      '15m'
     );
 
     const refreshToken = signToken(
       { id: user.id, role: Role.User },
       process.env.JWT_REFRESH_SECRET!,
-      '7d',
+      '7d'
     );
 
     res.cookie('accessToken', accessToken, {

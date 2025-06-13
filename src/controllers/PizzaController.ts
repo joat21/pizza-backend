@@ -29,12 +29,17 @@ export const getAll: RequestHandler<any, any, any, PizzaQuery> = async (
 
     const response = pizzas.map((pizza) => ({
       ...pizza,
-      variants: pizza.variants.map((variant) => ({
-        id: variant.id,
-        price: variant.price,
-        doughType: variant.doughType.name,
-        size: variant.pizzaSize.size,
-      })),
+      variants: pizza.variants
+        .map((variant) => ({
+          id: variant.id,
+          price: variant.price,
+          doughType: variant.doughType.name,
+          size: variant.pizzaSize.size,
+        }))
+        .sort(
+          (a, b) =>
+            a.doughType.localeCompare(b.doughType, 'ru') || a.size - b.size
+        ),
     }));
 
     res.json(response);
@@ -70,12 +75,17 @@ export const getOneById: RequestHandler<PizzaParams> = async (
 
     res.json({
       ...pizza,
-      variants: pizza.variants.map((variant) => ({
-        id: variant.id,
-        price: variant.price,
-        doughType: variant.doughType.name,
-        size: variant.pizzaSize.size,
-      })),
+      variants: pizza.variants
+        .map((variant) => ({
+          id: variant.id,
+          price: variant.price,
+          doughType: variant.doughType.name,
+          size: variant.pizzaSize.size,
+        }))
+        .sort(
+          (a, b) =>
+            a.doughType.localeCompare(b.doughType, 'ru') || a.size - b.size
+        ),
     });
   } catch (error) {
     next(error);

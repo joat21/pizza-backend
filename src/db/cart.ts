@@ -51,6 +51,7 @@ export const getOrCreatePopulatedCart = async (
             },
           },
         },
+        orderBy: { createdAt: 'asc' },
       },
     },
   });
