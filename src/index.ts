@@ -54,7 +54,6 @@ app.get(
   '/auth/github',
   passport.authenticate('github', { scope: ['user:email'] })
 );
-
 app.get(
   '/auth/github/callback',
   passport.authenticate('github', {
@@ -63,6 +62,8 @@ app.get(
   }),
   AuthController.callbackHandler
 );
+app.get('/auth/me', AuthController.getMe);
+app.delete('/auth/logout', AuthController.logout);
 
 app.get(
   '/pizza',

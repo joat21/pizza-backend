@@ -13739,10 +13739,10 @@ export namespace Prisma {
 
   export type OrderWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    userId?: string
     AND?: OrderWhereInput | OrderWhereInput[]
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
+    userId?: StringNullableFilter<"Order"> | string | null
     totalPrice?: IntFilter<"Order"> | number
     fullName?: StringFilter<"Order"> | string
     email?: StringFilter<"Order"> | string
@@ -13752,7 +13752,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Order"> | Date | string
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     items?: OrderItemListRelationFilter
-  }, "id" | "userId">
+  }, "id">
 
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder

@@ -108,6 +108,7 @@ export const getAll: RequestHandler = async (req, res, next) => {
           },
         },
       },
+      orderBy: { createdAt: 'desc' },
     });
 
     if (orders.length === 0) {
