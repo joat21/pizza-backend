@@ -2,6 +2,7 @@ import { RequestHandler } from 'express';
 
 import { prisma } from '../prismaClient';
 
+import { cookieOptions } from '../config/constants';
 import { signToken } from '../helpers/signToken';
 import { mergeGuestAndUserCarts } from '../helpers/mergeGuestAndUserCarts';
 
@@ -30,17 +31,13 @@ export const callbackHandler: RequestHandler = async (req, res, next) => {
     );
 
     res.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: 15 * 60 * 1000,
+      ...cookieOptions,
+      maxAge: 1000 * 60 * 15,
     });
 
     res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      ...cookieOptions,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
     res.redirect(process.env.FRONTEND_URL!);
@@ -75,19 +72,8 @@ export const getMe: RequestHandler = async (req, res, next) => {
 
 export const logout: RequestHandler = async (_req, res, next) => {
   try {
-    res.clearCookie('accessToken', {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: 15 * 60 * 1000,
-    });
-
-    res.clearCookie('refreshToken', {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    res.clearCookie('accessToken', cookieOptions);
+    res.clearCookie('refreshToken', cookieOptions);
 
     res.sendStatus(200);
   } catch (error) {

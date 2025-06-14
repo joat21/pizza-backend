@@ -10,9 +10,9 @@ export const authTokensHandler: RequestHandler = async (req, res, next) => {
     return;
   }
 
-  const { valid } = await verifyAndRefreshTokens(req, res);
+  const isValid = await verifyAndRefreshTokens(req, res);
 
-  if (!valid) {
+  if (!isValid) {
     res.sendStatus(401);
     return;
   }

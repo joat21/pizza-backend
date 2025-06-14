@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { v4 as uuidv4 } from 'uuid';
+import { cookieOptions } from '../config/constants';
 
 export const guestCartHandler: RequestHandler = async (req, res, next) => {
   const isGuest = !req.user;
@@ -12,10 +13,8 @@ export const guestCartHandler: RequestHandler = async (req, res, next) => {
     }
 
     res.cookie('cartId', cartId, {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-      maxAge: 30 * 24 * 60 * 60 * 1000,
+      ...cookieOptions,
+      maxAge: 1000 * 60 * 60 * 24 * 30,
     });
 
     req.guestCartId = cartId;

@@ -1,46 +1,46 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { signToken } from './signToken';
+import { cookieOptions } from '../config/constants';
 
 export const verifyAndRefreshTokens = async (
   req: Request,
-  res: Response,
-): Promise<{ valid: boolean; accessToken?: jwt.JwtPayload }> => {
+  res: Response
+): Promise<boolean> => {
   const accessToken = req.cookies.accessToken;
   const refreshToken = req.cookies.refreshToken;
 
   try {
-    const decodedAccess = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET!) as jwt.JwtPayload;
+    jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET!) as jwt.JwtPayload;
 
-    return { valid: true, accessToken: decodedAccess };
+    return true;
   } catch (error) {
     try {
       const decodedRefresh = jwt.verify(
         refreshToken,
-        process.env.JWT_REFRESH_SECRET!,
+        process.env.JWT_REFRESH_SECRET!
       ) as jwt.JwtPayload;
 
       const newAccessToken = signToken(
         { id: decodedRefresh.id, role: decodedRefresh.role },
-        process.env.JWT_REFRESH_SECRET!,
-        '15m',
+        process.env.JWT_ACCESS_SECRET!,
+        '15m'
       );
 
       res.cookie('accessToken', newAccessToken, {
-        httpOnly: true,
-        sameSite: 'none',
-        secure: true,
-        maxAge: 15 * 60 * 1000,
+        ...cookieOptions,
+        maxAge: 1000 * 60 * 15,
       });
 
-      return { valid: true, accessToken: jwt.decode(newAccessToken) as jwt.JwtPayload };
+      req.cookies.accessToken = newAccessToken;
+      return true;
     } catch (error) {
-      res.clearCookie('accessToken');
-      res.clearCookie('refreshToken');
+      res.clearCookie('accessToken', cookieOptions);
+      res.clearCookie('refreshToken', cookieOptions);
 
       console.error(error);
 
-      return { valid: false };
+      return false;
     }
   }
 };
