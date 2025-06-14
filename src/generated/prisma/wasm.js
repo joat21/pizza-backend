@@ -125,7 +125,9 @@ exports.Prisma.UserScalarFieldEnum = {
   oauthId: 'oauthId',
   oauthProvider: 'oauthProvider',
   name: 'name',
-  avatarUrl: 'avatarUrl'
+  surname: 'surname',
+  email: 'email',
+  phone: 'phone'
 };
 
 exports.Prisma.PizzaScalarFieldEnum = {

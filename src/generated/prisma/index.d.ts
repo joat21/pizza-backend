@@ -1959,7 +1959,9 @@ export namespace Prisma {
     oauthId: string | null
     oauthProvider: string | null
     name: string | null
-    avatarUrl: string | null
+    surname: string | null
+    email: string | null
+    phone: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1967,7 +1969,9 @@ export namespace Prisma {
     oauthId: string | null
     oauthProvider: string | null
     name: string | null
-    avatarUrl: string | null
+    surname: string | null
+    email: string | null
+    phone: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1975,7 +1979,9 @@ export namespace Prisma {
     oauthId: number
     oauthProvider: number
     name: number
-    avatarUrl: number
+    surname: number
+    email: number
+    phone: number
     _all: number
   }
 
@@ -1985,7 +1991,9 @@ export namespace Prisma {
     oauthId?: true
     oauthProvider?: true
     name?: true
-    avatarUrl?: true
+    surname?: true
+    email?: true
+    phone?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1993,7 +2001,9 @@ export namespace Prisma {
     oauthId?: true
     oauthProvider?: true
     name?: true
-    avatarUrl?: true
+    surname?: true
+    email?: true
+    phone?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2001,7 +2011,9 @@ export namespace Prisma {
     oauthId?: true
     oauthProvider?: true
     name?: true
-    avatarUrl?: true
+    surname?: true
+    email?: true
+    phone?: true
     _all?: true
   }
 
@@ -2082,7 +2094,9 @@ export namespace Prisma {
     oauthId: string
     oauthProvider: string
     name: string
-    avatarUrl: string
+    surname: string
+    email: string
+    phone: string
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2107,7 +2121,9 @@ export namespace Prisma {
     oauthId?: boolean
     oauthProvider?: boolean
     name?: boolean
-    avatarUrl?: boolean
+    surname?: boolean
+    email?: boolean
+    phone?: boolean
     cart?: boolean | User$cartArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2118,7 +2134,9 @@ export namespace Prisma {
     oauthId?: boolean
     oauthProvider?: boolean
     name?: boolean
-    avatarUrl?: boolean
+    surname?: boolean
+    email?: boolean
+    phone?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2126,7 +2144,9 @@ export namespace Prisma {
     oauthId?: boolean
     oauthProvider?: boolean
     name?: boolean
-    avatarUrl?: boolean
+    surname?: boolean
+    email?: boolean
+    phone?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2134,10 +2154,12 @@ export namespace Prisma {
     oauthId?: boolean
     oauthProvider?: boolean
     name?: boolean
-    avatarUrl?: boolean
+    surname?: boolean
+    email?: boolean
+    phone?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "oauthId" | "oauthProvider" | "name" | "avatarUrl", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "oauthId" | "oauthProvider" | "name" | "surname" | "email" | "phone", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cart?: boolean | User$cartArgs<ExtArgs>
     orders?: boolean | User$ordersArgs<ExtArgs>
@@ -2157,7 +2179,9 @@ export namespace Prisma {
       oauthId: string
       oauthProvider: string
       name: string
-      avatarUrl: string
+      surname: string
+      email: string
+      phone: string
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2587,7 +2611,9 @@ export namespace Prisma {
     readonly oauthId: FieldRef<"User", 'String'>
     readonly oauthProvider: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
-    readonly avatarUrl: FieldRef<"User", 'String'>
+    readonly surname: FieldRef<"User", 'String'>
+    readonly email: FieldRef<"User", 'String'>
+    readonly phone: FieldRef<"User", 'String'>
   }
     
 
@@ -13065,7 +13091,9 @@ export namespace Prisma {
     oauthId: 'oauthId',
     oauthProvider: 'oauthProvider',
     name: 'name',
-    avatarUrl: 'avatarUrl'
+    surname: 'surname',
+    email: 'email',
+    phone: 'phone'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -13265,7 +13293,9 @@ export namespace Prisma {
     oauthId?: StringFilter<"User"> | string
     oauthProvider?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    avatarUrl?: StringFilter<"User"> | string
+    surname?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    phone?: StringFilter<"User"> | string
     cart?: XOR<CartNullableScalarRelationFilter, CartWhereInput> | null
     orders?: OrderListRelationFilter
   }
@@ -13275,7 +13305,9 @@ export namespace Prisma {
     oauthId?: SortOrder
     oauthProvider?: SortOrder
     name?: SortOrder
-    avatarUrl?: SortOrder
+    surname?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
     cart?: CartOrderByWithRelationInput
     orders?: OrderOrderByRelationAggregateInput
   }
@@ -13288,7 +13320,9 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     oauthProvider?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
-    avatarUrl?: StringFilter<"User"> | string
+    surname?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    phone?: StringFilter<"User"> | string
     cart?: XOR<CartNullableScalarRelationFilter, CartWhereInput> | null
     orders?: OrderListRelationFilter
   }, "id" | "oauthId">
@@ -13298,7 +13332,9 @@ export namespace Prisma {
     oauthId?: SortOrder
     oauthProvider?: SortOrder
     name?: SortOrder
-    avatarUrl?: SortOrder
+    surname?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -13312,7 +13348,9 @@ export namespace Prisma {
     oauthId?: StringWithAggregatesFilter<"User"> | string
     oauthProvider?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
-    avatarUrl?: StringWithAggregatesFilter<"User"> | string
+    surname?: StringWithAggregatesFilter<"User"> | string
+    email?: StringWithAggregatesFilter<"User"> | string
+    phone?: StringWithAggregatesFilter<"User"> | string
   }
 
   export type PizzaWhereInput = {
@@ -13851,7 +13889,9 @@ export namespace Prisma {
     oauthId: string
     oauthProvider: string
     name: string
-    avatarUrl: string
+    surname: string
+    email: string
+    phone: string
     cart?: CartCreateNestedOneWithoutUserInput
     orders?: OrderCreateNestedManyWithoutUserInput
   }
@@ -13861,7 +13901,9 @@ export namespace Prisma {
     oauthId: string
     oauthProvider: string
     name: string
-    avatarUrl: string
+    surname: string
+    email: string
+    phone: string
     cart?: CartUncheckedCreateNestedOneWithoutUserInput
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
@@ -13871,7 +13913,9 @@ export namespace Prisma {
     oauthId?: StringFieldUpdateOperationsInput | string
     oauthProvider?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    avatarUrl?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     cart?: CartUpdateOneWithoutUserNestedInput
     orders?: OrderUpdateManyWithoutUserNestedInput
   }
@@ -13881,7 +13925,9 @@ export namespace Prisma {
     oauthId?: StringFieldUpdateOperationsInput | string
     oauthProvider?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    avatarUrl?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     cart?: CartUncheckedUpdateOneWithoutUserNestedInput
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -13891,7 +13937,9 @@ export namespace Prisma {
     oauthId: string
     oauthProvider: string
     name: string
-    avatarUrl: string
+    surname: string
+    email: string
+    phone: string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -13899,7 +13947,9 @@ export namespace Prisma {
     oauthId?: StringFieldUpdateOperationsInput | string
     oauthProvider?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    avatarUrl?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -13907,7 +13957,9 @@ export namespace Prisma {
     oauthId?: StringFieldUpdateOperationsInput | string
     oauthProvider?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    avatarUrl?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
   }
 
   export type PizzaCreateInput = {
@@ -14464,7 +14516,9 @@ export namespace Prisma {
     oauthId?: SortOrder
     oauthProvider?: SortOrder
     name?: SortOrder
-    avatarUrl?: SortOrder
+    surname?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -14472,7 +14526,9 @@ export namespace Prisma {
     oauthId?: SortOrder
     oauthProvider?: SortOrder
     name?: SortOrder
-    avatarUrl?: SortOrder
+    surname?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -14480,7 +14536,9 @@ export namespace Prisma {
     oauthId?: SortOrder
     oauthProvider?: SortOrder
     name?: SortOrder
-    avatarUrl?: SortOrder
+    surname?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -16305,7 +16363,9 @@ export namespace Prisma {
     oauthId: string
     oauthProvider: string
     name: string
-    avatarUrl: string
+    surname: string
+    email: string
+    phone: string
     orders?: OrderCreateNestedManyWithoutUserInput
   }
 
@@ -16314,7 +16374,9 @@ export namespace Prisma {
     oauthId: string
     oauthProvider: string
     name: string
-    avatarUrl: string
+    surname: string
+    email: string
+    phone: string
     orders?: OrderUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -16363,7 +16425,9 @@ export namespace Prisma {
     oauthId?: StringFieldUpdateOperationsInput | string
     oauthProvider?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    avatarUrl?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     orders?: OrderUpdateManyWithoutUserNestedInput
   }
 
@@ -16372,7 +16436,9 @@ export namespace Prisma {
     oauthId?: StringFieldUpdateOperationsInput | string
     oauthProvider?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    avatarUrl?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -16493,7 +16559,9 @@ export namespace Prisma {
     oauthId: string
     oauthProvider: string
     name: string
-    avatarUrl: string
+    surname: string
+    email: string
+    phone: string
     cart?: CartCreateNestedOneWithoutUserInput
   }
 
@@ -16502,7 +16570,9 @@ export namespace Prisma {
     oauthId: string
     oauthProvider: string
     name: string
-    avatarUrl: string
+    surname: string
+    email: string
+    phone: string
     cart?: CartUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -16551,7 +16621,9 @@ export namespace Prisma {
     oauthId?: StringFieldUpdateOperationsInput | string
     oauthProvider?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    avatarUrl?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     cart?: CartUpdateOneWithoutUserNestedInput
   }
 
@@ -16560,7 +16632,9 @@ export namespace Prisma {
     oauthId?: StringFieldUpdateOperationsInput | string
     oauthProvider?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    avatarUrl?: StringFieldUpdateOperationsInput | string
+    surname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
     cart?: CartUncheckedUpdateOneWithoutUserNestedInput
   }
 

@@ -28,6 +28,7 @@ import {
 } from './schemas/cart';
 import { PizzaParamsSchema, PizzaQuerySchema } from './schemas/pizza';
 import { OrderBodySchema } from './schemas/order';
+import { UserBodySchema } from './schemas/user';
 
 dotenv.config();
 
@@ -64,6 +65,11 @@ app.get(
 );
 app.get('/auth/me', AuthController.getMe);
 app.delete('/auth/logout', AuthController.logout);
+app.patch(
+  '/auth/user',
+  validate({ body: UserBodySchema }),
+  AuthController.updateUser
+);
 
 app.get(
   '/pizza',

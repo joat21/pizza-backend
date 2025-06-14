@@ -7,6 +7,7 @@ import { signToken } from '../helpers/signToken';
 import { mergeGuestAndUserCarts } from '../helpers/mergeGuestAndUserCarts';
 
 import { Role } from '../types';
+import { UserBody } from '../types/user';
 
 export const callbackHandler: RequestHandler = async (req, res, next) => {
   try {
@@ -74,6 +75,37 @@ export const logout: RequestHandler = async (_req, res, next) => {
   try {
     res.clearCookie('accessToken', cookieOptions);
     res.clearCookie('refreshToken', cookieOptions);
+
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUser: RequestHandler<any, any, UserBody> = async (
+  req,
+  res,
+  next
+) => {
+  try {
+    const userId = req.user?.id;
+    const newUserData = req.body;
+
+    if (!userId) {
+      res.sendStatus(401);
+      return;
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      res.sendStatus(401);
+      return;
+    }
+
+    await prisma.user.update({ where: { id: userId }, data: newUserData });
 
     res.sendStatus(200);
   } catch (error) {
