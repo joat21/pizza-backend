@@ -35,7 +35,10 @@ jobs:
         run: |
           docker build -t $REGISTRY/$IMAGE_REPO:latest .
           docker push $REGISTRY/$IMAGE_REPO:latest
-
+          
+      - name: show
+        run: echo "Revision service account id: ${{ secrets.YC_SA_ID }}"
+      
       - name: Deploy Serverless Container revision
         uses: yc-actions/yc-sls-container-deploy@v3
         with:
