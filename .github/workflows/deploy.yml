@@ -35,10 +35,6 @@ jobs:
         run: |
           docker build -t $REGISTRY/$IMAGE_REPO:latest .
           docker push $REGISTRY/$IMAGE_REPO:latest
-          
-      - name: Check secret YC_SA_ID
-        run: |
-          echo "YC_SA_ID='${{ secrets.YC_SA_ID }}'"
       
       - name: Deploy Serverless Container revision
         uses: yc-actions/yc-sls-container-deploy@v3
