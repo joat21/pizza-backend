@@ -41,6 +41,7 @@ export const callbackHandler: RequestHandler = async (req, res, next) => {
       maxAge: 1000 * 60 * 60 * 24 * 7,
     });
 
+    console.log('redirect to:', process.env.FRONTEND_URL!);
     res.redirect(process.env.FRONTEND_URL!);
   } catch (error) {
     next(error);
