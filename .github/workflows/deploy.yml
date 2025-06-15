@@ -20,17 +20,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Get Yandex IAM Token
-        id: YC_TOKEN
-        uses: docker://ghcr.io/yc-actions/yc-iam-token-fed:1.0.0
+      - name: Get IAM Token
+        id: get-iam-token
+        uses: yc-actions/yc-iam-token@v1
         with:
-          ya-sa-id: ${{ secrets.YA_SA_ID }}
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
-      - name: Authenticate to Yandex Cloud
-        uses: yc-actions/authorize@v1
+      - name: Login to Yandex Container Registry
+        uses: yc-actions/yc-cr-login@v3
         with:
-          yc-sa-id: ${{ secrets.YC_SA_ID }}
-          yc-folder-id: ${{ secrets.FOLDER_ID }}
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
       - name: Build and push image
         run: |
@@ -40,7 +39,7 @@ jobs:
       - name: Deploy Serverless Container revision
         uses: yc-actions/yc-sls-container-deploy@v3
         with:
-          yc-sa-id: ${{ secrets.YC_SA_ID }}
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           folder-id: ${{ secrets.FOLDER_ID }}
           container-name: $IMAGE_REPO
           revision-service-account-id: ${{ secrets.YC_SA_ID }}
