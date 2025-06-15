@@ -41,7 +41,7 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           folder-id: ${{ secrets.FOLDER_ID }}
-          container-name: $IMAGE_REPO
+          container-name: pizza-backend
           revision-service-account-id: ${{ secrets.YC_SA_ID }}
           revision-cores: 1
           revision-memory: 512Mb
