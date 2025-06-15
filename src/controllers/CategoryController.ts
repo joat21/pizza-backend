@@ -3,9 +3,7 @@ import { prisma } from '../prismaClient';
 
 export const getAll: RequestHandler = async (_req, res, next) => {
   try {
-    const categories = await prisma.category.findMany({
-      orderBy: { order: 'asc' },
-    });
+    const categories = await prisma.category.findMany();
 
     res.json(categories);
   } catch (error) {

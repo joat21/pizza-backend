@@ -15,7 +15,7 @@ export const getAll: RequestHandler<any, any, any, PizzaQuery> = async (
     const orderBy = parseSortParam(sortBy);
 
     const pizzas = await prisma.pizza.findMany({
-      where: { categoryId },
+      where: { categoryId: categoryId && Number(categoryId) },
       include: {
         variants: {
           include: {

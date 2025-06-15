@@ -144,8 +144,7 @@ exports.Prisma.PizzaScalarFieldEnum = {
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  order: 'order'
+  name: 'name'
 };
 
 exports.Prisma.PizzaVariantScalarFieldEnum = {

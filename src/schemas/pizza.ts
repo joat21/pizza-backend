@@ -6,7 +6,7 @@ export const PizzaParamsSchema = z.object({
 
 export const PizzaQuerySchema = z
   .object({
-    categoryId: z.string().uuid(),
+    categoryId: z.coerce.number(),
     sortBy: z.string(),
   })
   .partial();

@@ -27,7 +27,7 @@ model Pizza {
   imageUrl         String
   overviewImageUrl String
   category         Category       @relation(fields: [categoryId], references: [id])
-  categoryId       String
+  categoryId       Int
   rating           Float
   minPrice         Int
   slug             String
@@ -35,9 +35,8 @@ model Pizza {
 }
 
 model Category {
-  id     String  @id @default(uuid())
+  id     Int     @id @default(autoincrement())
   name   String
-  order  Int
   pizzas Pizza[]
 }
 
@@ -46,22 +45,22 @@ model PizzaVariant {
   pizza       Pizza       @relation(fields: [pizzaId], references: [id])
   pizzaId     String
   doughType   DoughType   @relation(fields: [doughTypeId], references: [id])
-  doughTypeId String
+  doughTypeId Int
   pizzaSize   PizzaSize   @relation(fields: [pizzaSizeId], references: [id])
-  pizzaSizeId String
+  pizzaSizeId Int
   price       Int
   cartItems   CartItem[]
   orderItems  OrderItem[]
 }
 
 model DoughType {
-  id       String         @id @default(uuid())
+  id       Int            @id @default(autoincrement())
   name     String
   variants PizzaVariant[]
 }
 
 model PizzaSize {
-  id       String         @id @default(uuid())
+  id       Int            @id @default(autoincrement())
   size     Int
   variants PizzaVariant[]
 }
