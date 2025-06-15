@@ -129,82 +129,82 @@ resource "yandex_serverless_container_iam_binding" "invoker" {
   ]
 }
 
-# Функция для запуска БД
-resource "yandex_function" "db_starter" {
-  name               = "db-starter"
-  user_hash          = "first-function"
-  runtime            = "bash-2204"
-  entrypoint         = "db-starter.sh"
-  memory             = "128"
-  execution_timeout  = "10"
-  service_account_id = var.service_account_id
+# # Функция для запуска БД
+# resource "yandex_function" "db_starter" {
+#   name               = "db-starter"
+#   user_hash          = "first-function"
+#   runtime            = "bash-2204"
+#   entrypoint         = "db-starter.sh"
+#   memory             = "128"
+#   execution_timeout  = "10"
+#   service_account_id = var.service_account_id
 
-  environment = {
-      CLUSTER_ID = yandex_mdb_postgresql_cluster.pizza_pg.id
-  }
+#   environment = {
+#       CLUSTER_ID = yandex_mdb_postgresql_cluster.pizza_pg.id
+#   }
 
-  content {
-      zip_filename = "scripts/db-starter.sh"
-  }
+#   content {
+#       zip_filename = "scripts/db-starter.sh"
+#   }
 
-  depends_on = [
-    yandex_mdb_postgresql_cluster.pizza_pg
-  ]
-}
+#   depends_on = [
+#     yandex_mdb_postgresql_cluster.pizza_pg
+#   ]
+# }
 
-# Таймер для запуска БД каждое воскресение в 6 утра
-resource "yandex_function_trigger" "db_starter_timer" {
-  name = "db-starter"
+# # Таймер для запуска БД каждое воскресение в 6 утра
+# resource "yandex_function_trigger" "db_starter_timer" {
+#   name = "db-starter"
 
-  function {
-    id                 = yandex_function.db_starter.id
-    service_account_id = var.service_account_id
-  }
-  timer {
-    cron_expression = "0 1 ? * SUN"
-  }
+#   function {
+#     id                 = yandex_function.db_starter.id
+#     service_account_id = var.service_account_id
+#   }
+#   timer {
+#     cron_expression = "0 1 ? * SUN"
+#   }
 
-  depends_on = [
-    yandex_function.db_starter
-  ]
-}
+#   depends_on = [
+#     yandex_function.db_starter
+#   ]
+# }
 
-# Функция для остановки БД
-resource "yandex_function" "db_stopper" {
-  name               = "db-stopper"
-  user_hash          = "first-function"
-  runtime            = "bash-2204"
-  entrypoint         = "db-stopper.sh"
-  memory             = "128"
-  execution_timeout  = "10"
-  service_account_id = var.service_account_id
+# # Функция для остановки БД
+# resource "yandex_function" "db_stopper" {
+#   name               = "db-stopper"
+#   user_hash          = "first-function"
+#   runtime            = "bash-2204"
+#   entrypoint         = "db-stopper.sh"
+#   memory             = "128"
+#   execution_timeout  = "10"
+#   service_account_id = var.service_account_id
 
-  environment = {
-      CLUSTER_ID = yandex_mdb_postgresql_cluster.pizza_pg.id
-  }
+#   environment = {
+#       CLUSTER_ID = yandex_mdb_postgresql_cluster.pizza_pg.id
+#   }
 
-  content {
-      zip_filename = "scripts/db-stopper.sh"
-  }
+#   content {
+#       zip_filename = "scripts/db-stopper.sh"
+#   }
 
-  depends_on = [
-    yandex_mdb_postgresql_cluster.pizza_pg
-  ]
-}
+#   depends_on = [
+#     yandex_mdb_postgresql_cluster.pizza_pg
+#   ]
+# }
 
-# Таймер для остановки БД каждый понедельник в час ночи
-resource "yandex_function_trigger" "db_stopper_timer" {
-  name = "db-stopper"
+# # Таймер для остановки БД каждый понедельник в час ночи
+# resource "yandex_function_trigger" "db_stopper_timer" {
+#   name = "db-stopper"
 
-  function {
-    id                 = yandex_function.db_stopper.id
-    service_account_id = var.service_account_id
-  }
-  timer {
-    cron_expression = "0 19 ? * SUN"
-  }
+#   function {
+#     id                 = yandex_function.db_stopper.id
+#     service_account_id = var.service_account_id
+#   }
+#   timer {
+#     cron_expression = "0 19 ? * SUN"
+#   }
 
-  depends_on = [
-    yandex_function.db_stopper
-  ]
-}
+#   depends_on = [
+#     yandex_function.db_stopper
+#   ]
+# }

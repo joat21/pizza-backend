@@ -52,58 +52,62 @@ app.use(getUserByToken);
 app.use(guestCartHandler);
 
 app.get(
-  '/auth/github',
+  '/api/auth/github',
   passport.authenticate('github', { scope: ['user:email'] })
 );
 app.get(
-  '/auth/github/callback',
+  '/api/auth/github/callback',
   passport.authenticate('github', {
     session: false,
     failureRedirect: process.env.FRONTEND_URL,
   }),
   AuthController.callbackHandler
 );
-app.get('/auth/me', AuthController.getMe);
-app.delete('/auth/logout', AuthController.logout);
+app.get('/api/auth/me', AuthController.getMe);
+app.delete('/api/auth/logout', AuthController.logout);
 app.patch(
-  '/auth/user',
+  '/api/auth/user',
   validate({ body: UserBodySchema }),
   AuthController.updateUser
 );
 
 app.get(
-  '/pizza',
+  '/api/pizza',
   validate({ query: PizzaQuerySchema }),
   PizzaController.getAll
 );
 app.get(
-  '/pizza/:id',
+  '/api/pizza/:id',
   validate({ params: PizzaParamsSchema }),
   PizzaController.getOneById
 );
 
-app.get('/categories', CategoryController.getAll);
+app.get('/api/categories', CategoryController.getAll);
 
-app.get('/cart', CartController.getItems);
+app.get('/api/cart', CartController.getItems);
 app.patch(
-  '/cart/:id',
+  '/api/cart/:id',
   validate({ params: CartItemParamsSchema, body: UpdateCartItemBodySchema }),
   CartController.updateItem
 );
 app.delete(
-  '/cart/:id',
+  '/api/cart/:id',
   validate({ params: CartItemParamsSchema }),
   CartController.deleteItem
 );
 app.post(
-  '/cart',
+  '/api/cart',
   validate({ body: AddCartItemBodySchema }),
   CartController.addItem
 );
-app.delete('/cart', CartController.clear);
+app.delete('/api/cart', CartController.clear);
 
-app.post('/order', validate({ body: OrderBodySchema }), OrderController.create);
-app.get('/order', requireAuth, OrderController.getAll);
+app.post(
+  '/api/order',
+  validate({ body: OrderBodySchema }),
+  OrderController.create
+);
+app.get('/api/order', requireAuth, OrderController.getAll);
 
 app.use(errorHandler);
 
