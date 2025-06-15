@@ -48,3 +48,12 @@ jobs:
           revision-concurrency: 4
           revision-execution-timeout: 60
           revision-image-url: cr.yandex/${{ secrets.YC_REGISTRY_ID }}/pizza-backend:latest
+          revision-env: |
+            NODE_ENV=production
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            GITHUB_CLIENT_ID=${{ secrets.GHUB_CLIENT_ID }}
+            GITHUB_CLIENT_SECRET=${{ secrets.GHUB_CLIENT_SECRET }}
+            GITHUB_CALLBACK_URL=${{ secrets.GHUB_CALLBACK_URL }}
+            FRONTEND_URL=${{ secrets.FRONTEND_URL }}
+            JWT_ACCESS_SECRET=${{ secrets.JWT_ACCESS_SECRET }}
+            JWT_REFRESH_SECRET=${{ secrets.JWT_REFRESH_SECRET }}
