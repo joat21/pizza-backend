@@ -47,4 +47,4 @@ jobs:
           revision-memory: 512Mb
           revision-concurrency: 4
           revision-execution-timeout: 60
-          revision-image-url: $REGISTRY/$IMAGE_REPO:latest
+          revision-image-url: cr.yandex/${{ secrets.YC_REGISTRY_ID }}/pizza-backend:latest
