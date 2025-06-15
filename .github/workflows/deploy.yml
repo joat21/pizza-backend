@@ -40,7 +40,6 @@ jobs:
         uses: yc-actions/yc-sls-container-deploy@v3
         with:
           yc-sa-id: ${{ secrets.YC_SA_ID }}
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           folder-id: ${{ secrets.FOLDER_ID }}
           container-name: pizza-backend
           revision-service-account-id: ${{ secrets.YC_SA_ID }}
