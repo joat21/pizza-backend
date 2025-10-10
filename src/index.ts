@@ -1,8 +1,10 @@
 import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
 import passport from 'passport';
 import cors from 'cors';
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 import './auth';
 import './tasks/cleanupOldGuestCarts';
@@ -29,8 +31,6 @@ import {
 import { PizzaParamsSchema, PizzaQuerySchema } from './schemas/pizza';
 import { OrderBodySchema } from './schemas/order';
 import { UserBodySchema } from './schemas/user';
-
-dotenv.config();
 
 const PORT = 8080;
 
@@ -63,6 +63,20 @@ app.get(
   }),
   AuthController.callbackHandler
 );
+
+app.get(
+  '/api/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+app.get(
+  '/api/auth/google/callback',
+  passport.authenticate('google', {
+    session: false,
+    failureRedirect: process.env.FRONTEND_URL,
+  }),
+  AuthController.callbackHandler
+);
+
 app.get('/api/auth/me', AuthController.getMe);
 app.delete('/api/auth/logout', AuthController.logout);
 app.patch(

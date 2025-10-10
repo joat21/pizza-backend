@@ -1,21 +1,20 @@
 import passport from 'passport';
-import { Strategy as GitHubStrategy, Profile } from 'passport-github2';
+import { Strategy as GoogleStrategy, Profile } from 'passport-google-oauth20';
 import { VerifyCallback } from 'passport-oauth2';
 
-import { prisma } from './prismaClient';
-import { DEFAULT_AVATAR_URL } from './config/constants';
+import { prisma } from '../prismaClient';
 
 const PORT = process.env.PORT || 3000;
-const GITHUB_CALLBACK_URL =
-  process.env.GITHUB_CALLBACK_URL ||
-  `http://localhost:${PORT}/auth/github/callback`;
+const GOOGLE_CALLBACK_URL =
+  process.env.GOOGLE_CALLBACK_URL ||
+  `http://localhost:${PORT}/auth/google/callback`;
 
 passport.use(
-  new GitHubStrategy(
+  new GoogleStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID || '',
-      clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
-      callbackURL: process.env.GITHUB_CALLBACK_URL || GITHUB_CALLBACK_URL,
+      clientID: process.env.GOOGLE_CLIENT_ID || '',
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+      callbackURL: GOOGLE_CALLBACK_URL,
     },
     async (
       _accessToken: string,
@@ -33,8 +32,8 @@ passport.use(
             data: {
               oauthId: profile.id,
               oauthProvider: profile.provider,
-              name: profile.username || profile.displayName,
-              surname: '',
+              name: profile.name?.givenName || '',
+              surname: profile.name?.familyName || '',
               email: profile.emails?.[0].value || '',
               phone: '',
             },
@@ -42,8 +41,8 @@ passport.use(
         }
 
         return done(null, user);
-      } catch (error) {
-        return done(error);
+      } catch (err) {
+        return done(err);
       }
     }
   )
