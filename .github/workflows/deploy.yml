@@ -35,7 +35,7 @@ jobs:
         run: |
           docker build -t $REGISTRY/$IMAGE_REPO:latest .
           docker push $REGISTRY/$IMAGE_REPO:latest
-      
+
       - name: Deploy Serverless Container revision
         uses: yc-actions/yc-sls-container-deploy@v3
         with:
@@ -54,6 +54,9 @@ jobs:
             GITHUB_CLIENT_ID=${{ secrets.GHUB_CLIENT_ID }}
             GITHUB_CLIENT_SECRET=${{ secrets.GHUB_CLIENT_SECRET }}
             GITHUB_CALLBACK_URL=${{ secrets.GHUB_CALLBACK_URL }}
+            GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
+            GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }}
             FRONTEND_URL=${{ secrets.FRONTEND_URL }}
             JWT_ACCESS_SECRET=${{ secrets.JWT_ACCESS_SECRET }}
             JWT_REFRESH_SECRET=${{ secrets.JWT_REFRESH_SECRET }}
